@@ -1,0 +1,6 @@
+requests~=2.25.1
+Flask~=1.1.2
+flask_apscheduler~=1.11.0
+gevent~=20.9.0
+apscheduler~=3.6.3
+redis~=3.5.3
