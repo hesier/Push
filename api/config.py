@@ -4,14 +4,14 @@ CONFIG = {
         'port': 5000
     },
     'wechat': {
-        'appid': "",
-        'secret': "",
+        'appid': '',
+        'secret': '',
         'template_id': '',  # 消息模板 id
     },
     'dingtalk': {
         'on': False,
-        'access_token': "",
-        'secret': "",
+        'access_token': '',
+        'secret': '',
     },
     'redis': {
         'host': 'localhost',

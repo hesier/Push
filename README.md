@@ -4,7 +4,7 @@
 
 ## 准备环境
 
-以将程序上传至 `/www/push` 目录为例，进入 后端 '/www/push/api' 目录。
+以将程序上传至 `/www/push` 目录为例，进入 后端 `/www/push/api` 目录。
 
 ### python
 
@@ -22,8 +22,6 @@ pip install -r requirements.txt
 
 ### redis
 
-安装 redis-server
-
 Ubuntu & Debian : 
 ```shell
 sudo apt install redis-server
@@ -35,6 +33,8 @@ CentOS & RedHat :
 sudo yum install redis
 sudo systemctl start redis
 ```
+
+redis 安装完成后保持默认即可，**无需开启外网访问**
 
 ### Caddy
 
@@ -62,8 +62,8 @@ yum install caddy
 登录测试号官网 [https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login](https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login)
 
 1. 获取测试号的 appID 与 appsecret，分别填入 `config.py` 中的 `wechat.appid` 与 `wechat.secret`。 
-2. 新增测试模板，模板标题随意填写 ，模板内容填写 `{{message.DATA}}`， 然后记录下 模板 ID，填入 `config.py` 中的 `wechat.template_id`
-3. 扫描测试号二维码并关注测试号，记录下自己的微信号，即为发送推送时所需填写的 openId
+2. 模板消息接口中新增测试模板，模板标题随意填写 ，模板内容填写 `{{message.DATA}}`，然后记录下 模板 ID，填入 `config.py` 中的 `wechat.template_id`
+3. 扫描测试号二维码并关注测试号，记录并保存好自己的微信号，即为发送推送时所需填写的 openId
 
 `server` 项配置为后端服务的 ip 和 端口，一般情况保持默认即可，若 5000 端口已被使用，请自行修改为其他未使用的端口。
 
@@ -71,7 +71,7 @@ yum install caddy
 
 ### 同步钉钉机器人
 
-若需要将消息同步至钉钉群机器人，需要修改 `config.py` 中的参数，将 `dingtalk.on` 参数设置为 `True`，将钉钉机器人的 `access_token` 和 `secret` 分别填入 `dingtalk.access_token` 和 `dingtalk.secret`，注意 `access_token` 只需要填写 Webhook 地址中 `access_token=` 后方的参数即可。
+若需要将消息同步至钉钉群机器人，需要修改 `config.py` 中的参数，将 `dingtalk.on` 参数设置为 `True`，将钉钉机器人的 `access_token` 和 `secret` 分别填入 `dingtalk.access_token` 和 `dingtalk.secret`，注意 `access_token` 只需要填写 Webhook 地址中 `access_token=` 后方的参数。
 
 ## 启动
 
@@ -123,9 +123,9 @@ https://xxxx.com {  # 修改为自己的域名
 
 访问 Caddy 中配置的域名或者 ip 地址，将之前获取到的微信号 openId 填入 微信 openId 测试是否推送正常。
 
-也可以访问 `https://xxxx.com/openId`，会自动填入 openId。
+也可以访问 [https://xxxx.com/这里改成openId](https://xxxx.com/这里改成openId) ，会自动填入 openId。
 
-直接推送消息接口 [https://xxxx.com/push/now/这里改成openId/这里改成推送内容](https://xxxx.com/push/now/这里改成openId/这里改成推送内容)
+直接推送消息接口：[https://xxxx.com/push/now/这里改成openId/这里改成推送内容](https://xxxx.com/push/now/这里改成openId/这里改成推送内容) 
 
 ### nginx 配置示例
 
