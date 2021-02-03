@@ -2,7 +2,33 @@
 
 通过微信公众平台的测试号进行消息推送，支持定时推送和 cron 表达式进行计划任务推送，支持将消息同步推送至钉钉机器人。
 
-## 准备环境
+## docker 部署
+
+> 下载配置文件
+
+点击下载 [config.py](https://github.com/hesier/Push/raw/master/api/config.py)，修改相关配置，具体配置内容参考下方章节（`server.ip` 和 `server.port` 请勿修改）。
+
+> 参数说明
+
+- `-p 12345:80` ：将程序映射至宿主机 `12345` 端口。
+- `-v /config.py:/push/api/config.py`：`/config.py` 为修改后的 `config.py` 文件路径，需自行修改。
+- `-v /logs:/push/logs`：`/logs` 为日志存放路径，可以不设置。
+
+> 运行命令
+
+```shell
+docker run -d --name push --restart=always \
+-p 12345:80 \
+-v /config.py:/push/api/config.py \
+-v /logs:/push/logs \
+hesier/push:latest
+```
+
+> 访问地址
+
+[http://ip:12345](http://ip:12345)
+
+## 手动部署
 
 以将程序上传至 `/www/push` 目录为例，进入 后端 `/www/push/api` 目录。
 
@@ -140,7 +166,7 @@ server {
         proxy_pass              http://127.0.0.1:5000/;
     }
     location / {
-        root   /www/push/dist;  # 本地后端程序的 ip 和端口
+        root   /www/push/dist;  # 前端静态文件路径
         index  index.html index.htm;
         if (!-e $request_filename) {
             rewrite ^(.*)$ /index.html?s=$1 last;
